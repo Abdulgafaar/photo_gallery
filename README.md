@@ -1,2 +1,3 @@
-# project_1
-this is to inform you that the roller shutter to the warehouse if faulty.
+#
+Project Features
+Photo gallery website that allow visitors to view pictures, like and also make comments
