@@ -30,12 +30,26 @@ class MySQLDatabase {
 
     public function query($sql){
     	$result = mysql_query($sql, $this->connection);
-    	$this->confirm_query($result_set);
+    	$this->confirm_query($result);
     	if(!$result){
     		die("Database query failed: " .  mysql_error());
     	}
     	return $result;
     }
+
+    function mysql_prep($value) {
+	    $magic_quotes_active = get_magic_quotes_gpc();
+	    $new_enough_php = function_exists( "mysql_real_escpe_string");
+	    if ($new_enough_php) { 
+		    if ($magic_quotes_active) {$value = stripslashes( $value);}
+		    $value = mysql_escape_string($value);
+	    }esle {
+	    if (!$magic_quotes_active) { $value =addslashes($value);}
+		    }
+	    return $value;
+    }
+
+
     private function confirm_query($result){
     	if(!$result){
     		die("Database query failed: " .  mysql_error());
